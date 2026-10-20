@@ -38,7 +38,6 @@ export default function Gallery() {
   // everything else that's set, so they match what clicking would show.
   const results = search(pieces, q);
   const terms = searchTerms(q);
-  const matchedAll = (n: number) => terms.length === 0 || n === terms.length;
   const searched = results.map((r) => r.piece);
   const byAvailability = searched.filter(availability.test);
   const shown = results.filter(
@@ -67,8 +66,6 @@ export default function Gallery() {
     else next.delete("q");
     setParams(next, { replace: true }); // typing shouldn't fill up browser history
   };
-
-  const firstPartial = shown.findIndex((r) => !matchedAll(r.matched));
 
   return (
     <>
@@ -175,13 +172,8 @@ export default function Gallery() {
         <p className="empty">Nothing on this shelf matches that.</p>
       ) : (
         <div className="parts-grid">
-          {shown.map((r, i) => (
+          {shown.map((r) => (
             <Fragment key={r.piece.slug}>
-              {i === firstPartial && firstPartial > 0 && (
-                <p className="grid-divider">
-                  Partial matches: some of your words, not all
-                </p>
-              )}
               <Link to={`/piece/${r.piece.slug}`} className="part-card">
                 <img src={cover(r.piece).src} alt={r.piece.title} loading="lazy" />
                 {r.piece.images.length > 1 && (

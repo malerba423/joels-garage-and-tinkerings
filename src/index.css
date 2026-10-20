@@ -128,10 +128,6 @@ button { font: inherit; color: inherit; }
 .empty-keyword { color: var(--muted); opacity: 0.55; text-decoration: none; }
 .result-line { margin: -12px 0 20px; font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
 .result-line a { color: var(--accent); }
-.grid-divider {
-  grid-column: 1 / -1; margin: 12px 0 0; padding-top: 12px; border-top: 1.5px dashed var(--rule);
-  font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; color: var(--muted);
-}
 
 /* Catalog (gallery) */
 .index-head {

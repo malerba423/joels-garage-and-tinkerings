@@ -7,8 +7,8 @@ import { partNo, statusLabel, type Piece } from "./pieces";
 //     "cop lam" finds "Copper Coil Lamp". Short words (1–3 letters) must match
 //     the start of a word, so "tin" finds "Tin Robot" but not "painting";
 //     longer ones can match anywhere ("ainting" still finds "painting").
-//   - A piece only needs to match ONE of your words to show up, but pieces
-//     that match MORE of them (and match in the title) are listed first.
+//   - A piece only needs to match ONE of your words to show up. All results
+//     are shown as one list; ones matching more words (or in the title) sort first.
 
 const normalize = (s: string) =>
   s
