@@ -17,6 +17,9 @@
   --rivet: #7d8186;
   --grid: rgba(34, 38, 43, 0.07);
   --pencil: #4f545b;
+  --header-bg: #22262b;   /* graphite band at the top of the sheet */
+  --header-ink: #f4f3ef;
+  --header-accent: #f0814a; /* lighter orange so it reads on graphite */
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --sans: 'IBM Plex Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
   --hand: 'Caveat', 'Bradley Hand', cursive;
@@ -41,6 +44,8 @@
     --rivet: #2a2e33;
     --grid: rgba(232, 230, 225, 0.05);
     --pencil: #b9bdc3;
+    --header-bg: #111316;
+    --header-ink: #e8e6e1;
   }
 }
 
@@ -72,19 +77,23 @@ button { font: inherit; color: inherit; }
 }
 @media (min-width: 1480px) { body { padding: 40px 0; } .site { min-height: calc(100vh - 80px); border-block: 2px solid var(--rule); } }
 .site main { flex: 1; }
+/* The header is a solid graphite band across the full width of the sheet, so it doesn't
+   compete with the ruled line under each page heading. */
 .site-header {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
-  padding: 20px 0; border-bottom: 2px solid var(--rule); margin-bottom: 32px;
+  margin: 0 -32px 32px; padding: 18px 32px;
+  background: var(--header-bg); color: var(--header-ink);
 }
 .site-title {
   display: flex; align-items: center; gap: 14px; text-decoration: none;
   font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); text-transform: uppercase; letter-spacing: 0.02em;
 }
-.badge { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; border: 2px solid var(--rule); padding: 3px 8px; }
+.site-header :focus-visible { outline-color: var(--header-accent); }
+.badge { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; border: 2px solid currentColor; padding: 3px 8px; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.875rem; text-transform: uppercase; }
 .site-nav a:not(.button) { padding: 10px 12px; text-decoration: none; border-bottom: 2px solid transparent; }
-.site-nav a:not(.button):hover { color: var(--accent); }
-.site-nav a.active { border-bottom-color: var(--accent); }
+.site-nav a:not(.button):hover { color: var(--header-accent); }
+.site-nav a.active { border-bottom-color: var(--header-accent); }
 .site-footer {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
   margin-top: 56px; padding: 16px 0 28px; border-top: 2px solid var(--rule);
@@ -278,6 +287,7 @@ button { font: inherit; color: inherit; }
 
 @media (max-width: 860px) {
   .site { padding: 0 16px; }
+  .site-header { margin-inline: -16px; padding-inline: 16px; }
   .detail, .work-order { grid-template-columns: 1fr; gap: 24px; }
   .detail-info, .work-order-media { position: static; }
   .delivery-opt { border-right: 0; border-bottom: 1.5px solid var(--rule); }
