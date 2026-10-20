@@ -58,7 +58,7 @@ export const pieces: Piece[] = [
     tags: ["desk", "table", "office", "standing", "bar-height", "garage"],
     notes:
       "4 inch channel steel frame with adjustable footsies and a reclaimed wood top. Shot under a single shop light.",
-    sale: { status: "commission" }, // example: change or remove
+    sale: { status: "available", price: "$1,000.00" }, // example: change or remove
   },
   {
     slug: "wineopener-lamp",
