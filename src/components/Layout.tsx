@@ -14,7 +14,7 @@ export default function Layout() {
         </Link>
         <nav className="site-nav">
           <Link to="/" {...current(pathname === '/' && !availableView)}>
-            01 Index
+            01 Catalog
           </Link>
           <Link to="/?status=available" {...current(availableView)}>
             02 Available

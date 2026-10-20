@@ -61,6 +61,22 @@ export const pieces: Piece[] = [
     sale: { status: "commission" }, // example: change or remove
   },
   {
+    slug: "wineopener-lamp",
+    title: "Wine Opener Lamp",
+    images: [
+      { src: "/art/wineopener-lamp-1.jpg", width: 4032, height: 3024 },
+      { src: "/art/wineopener-lamp-2.jpg", width: 4032, height: 3024 },
+      { src: "/art/wineopener-lamp-3.jpg", width: 4032, height: 3024 },
+      { src: "/art/wineopener-lamp-4.jpg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Steel, reclaimed wood",
+    tags: ["desk", "table", "office", "standing", "bar-height", "garage"],
+    notes:
+      "4 inch channel steel frame with adjustable footsies and a reclaimed wood top. Shot under a single shop light.",
+    sale: { status: "available", price: "$100.00" }, // example: change or remove
+  },
+  {
     slug: "rust-bucket-carburetor",
     title: "Rust Bucket Carburetor",
     images: [
