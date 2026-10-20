@@ -19,7 +19,6 @@
   --pencil: #4f545b;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --sans: 'IBM Plex Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
-  --stencil: 'Big Shoulders Stencil Display', 'IBM Plex Sans Condensed', sans-serif;
   --hand: 'Caveat', 'Bradley Hand', cursive;
   color-scheme: light dark;
   font: 16px/1.45 var(--sans);
@@ -79,8 +78,7 @@ button { font: inherit; color: inherit; }
 }
 .site-title {
   display: flex; align-items: center; gap: 14px; text-decoration: none;
-  font-family: var(--stencil); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.4rem); line-height: 1;
-  text-transform: uppercase; letter-spacing: 0.01em;
+  font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); text-transform: uppercase; letter-spacing: 0.02em;
 }
 .badge { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; border: 2px solid var(--rule); padding: 3px 8px; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.875rem; text-transform: uppercase; }
@@ -165,7 +163,7 @@ button { font: inherit; color: inherit; }
   display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;
   border-bottom: 2px solid var(--rule); padding-bottom: 8px; margin-bottom: 20px;
 }
-.index-head h1 { margin: 0; font-family: var(--stencil); font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1; font-weight: 800; text-transform: uppercase; }
+.index-head h1 { margin: 0; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; }
 .parts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 .part-card { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--rule); background: var(--sheet); text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
 .part-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rule); }
@@ -194,7 +192,7 @@ button { font: inherit; color: inherit; }
 .detail-image img { max-height: 78vh; object-fit: contain; margin: 0 auto; }
 .detail-info { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 18px; align-items: stretch; }
 .detail-heading { display: flex; flex-direction: column; gap: 4px; }
-.detail-heading h1 { margin: 0; font-family: var(--stencil); font-size: clamp(2.2rem, 4.5vw, 3.1rem); line-height: 0.95; font-weight: 800; text-transform: uppercase; }
+.detail-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1; font-weight: 700; text-transform: uppercase; }
 .spec { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.875rem; background: var(--sheet); }
 .spec th, .spec td { border: 1.5px solid var(--rule); padding: 8px 10px; text-align: left; vertical-align: top; }
 .spec th { width: 34%; font-weight: 400; color: var(--muted); text-transform: uppercase; }
@@ -280,7 +278,7 @@ button { font: inherit; color: inherit; }
 }
 
 .not-found { padding: 80px 0; text-align: center; font-family: var(--mono); }
-.not-found h1 { font-family: var(--stencil); font-size: 3rem; text-transform: uppercase; }
+.not-found h1 { font-family: var(--sans); text-transform: uppercase; }
 
 /* Presentation mode (unchanged look: it's for showing the work, full screen) */
 .present { position: fixed; inset: 0; background: #0b0a09; color: #eee; display: grid; place-items: center; overflow: hidden; }
