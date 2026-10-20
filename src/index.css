@@ -11,6 +11,7 @@
   --accent: #b33a0a;      /* safety orange, dark enough for text */
   --accent-ink: #ffffff;
   --sold: #b8241c;        /* the red dot */
+  --available: #2f9e44;   /* the green dot: lighter than the red so they differ for colorblind visitors too */
   --tag: #d9b07a;         /* pine */
   --tag-ink: #3b2a17;
   --steel: #c3c7cb;
@@ -40,6 +41,7 @@
     --accent: #f0814a;
     --accent-ink: #1c1f23;
     --sold: #e0443a;
+    --available: #4cc76a;
     --steel: #4a4f55;
     --rivet: #2a2e33;
     --grid: rgba(232, 230, 225, 0.05);
@@ -122,9 +124,10 @@ button { font: inherit; color: inherit; }
 .tag:hover { border-color: var(--accent); color: var(--accent); }
 .tag.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
-/* Status marks: ○ available · ● sold · ◐ on hold · ◌ can build another */
+/* Status marks: green ● available · red ● sold · ◐ on hold · ◌ can build another */
 .status { display: inline-flex; align-items: center; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--ink); }
+.dot-available { background: var(--available); border-color: var(--available); }
 .dot-sold { background: var(--sold); border-color: var(--sold); }
 .dot-hold { border-color: var(--sold); background: linear-gradient(90deg, var(--sold) 50%, transparent 50%); }
 .dot-commission { border-style: dashed; border-radius: 2px; }

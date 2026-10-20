@@ -1,7 +1,7 @@
 import { statusLabel, type SaleStatus } from '../data/pieces'
 import { shop } from '../data/shop'
 
-/** ○ available · ● sold (red dot) · ◐ on hold · ◌ can build another */
+/** green ● available · red ● sold · ◐ on hold · ◌ can build another */
 export function StatusMark({ status, label = false }: { status: SaleStatus; label?: boolean }) {
   return (
     <span className="status" title={statusLabel[status]}>
