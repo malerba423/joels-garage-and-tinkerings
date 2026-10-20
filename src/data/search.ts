@@ -7,8 +7,9 @@ import { partNo, statusLabel, type Piece } from "./pieces";
 //     "cop lam" finds "Copper Coil Lamp". Short words (1–3 letters) must match
 //     the start of a word, so "tin" finds "Tin Robot" but not "painting";
 //     longer ones can match anywhere ("ainting" still finds "painting").
-//   - A piece only needs to match ONE of your words to show up. All results
-//     are shown as one list; ones matching more words (or in the title) sort first.
+//   - A piece has to match EVERY word you type to show up ("copper lamp"
+//     finds the lamp, not every copper or lamp piece). Pieces that match in
+//     the title sort first.
 
 const normalize = (s: string) =>
   s
@@ -46,7 +47,7 @@ const matches = (text: string, t: string) =>
 
 export type SearchResult = { piece: Piece; matched: number; score: number };
 
-/** Pieces matching at least one term, best matches first. Empty query = everything, order kept. */
+/** Pieces matching every term, best matches first. Empty query = everything, order kept. */
 export function search(pieces: Piece[], query: string): SearchResult[] {
   const terms = searchTerms(query);
   if (terms.length === 0)
@@ -67,6 +68,6 @@ export function search(pieces: Piece[], query: string): SearchResult[] {
       }
       return { piece, matched, score: matched * 100 + score - order / 1000 };
     })
-    .filter((r) => r.matched > 0)
+    .filter((r) => r.matched === terms.length)
     .sort((a, b) => b.score - a.score);
 }
