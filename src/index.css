@@ -33,15 +33,15 @@
 }
 
 * { box-sizing: border-box; }
-/* Terracotta concrete behind everything; the site itself sits on it like a sheet of paper.
+/* Light concrete behind everything; the site itself sits on it like a sheet of paper.
    The texture tiles seamlessly; it's 1400px, drawn at 700px so it stays crisp on retina screens. */
 body {
   margin: 0;
-  background: #ac6248 url('/textures/terracotta-concrete.jpg') repeat;
+  background: #cbc8c1 url('/textures/concrete.jpg') repeat;
   background-size: 700px;
 }
 @media (prefers-color-scheme: dark) {
-  body { background-image: linear-gradient(rgba(10, 14, 20, 0.6), rgba(10, 14, 20, 0.6)), url('/textures/terracotta-concrete.jpg'); }
+  body { background-image: linear-gradient(rgba(10, 14, 20, 0.6), rgba(10, 14, 20, 0.6)), url('/textures/concrete.jpg'); }
 }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
@@ -52,7 +52,7 @@ button { font: inherit; color: inherit; }
 /* Frame */
 .site {
   max-width: 1400px; margin: 0 auto; padding: 0 32px; min-height: 100vh; display: flex; flex-direction: column;
-  background: var(--paper); border-inline: 2px solid var(--rule); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(40, 15, 5, 0.35);
+  background: var(--paper); border-inline: 2px solid var(--rule); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(20, 24, 30, 0.25);
 }
 @media (min-width: 1480px) { body { padding: 40px 0; } .site { min-height: calc(100vh - 80px); border-block: 2px solid var(--rule); } }
 .site main { flex: 1; }
