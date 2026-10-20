@@ -1,81 +1,107 @@
 import { Link, useSearchParams } from "react-router-dom";
 import {
   allTags,
+  availabilityFilters,
   cover,
-  filterByTag,
   partNo,
-  type SaleStatus,
+  pieces,
+  type Availability,
 } from "../data/pieces";
 import { StatusLegend, StatusMark } from "../components/Shop";
 
-const statusFilters: { id: SaleStatus; label: string }[] = [
-  { id: "available", label: "available" },
-  { id: "commission", label: "can build another" },
-  { id: "sold", label: "sold" },
-];
+const headings: Partial<Record<Availability, string>> = {
+  "for-sale": "Creations for Sale",
+  available: "Available Creations",
+  sold: "Sold Creations",
+  "not-for-sale": "Not for Sale",
+};
 
 export default function Gallery() {
   const [params, setParams] = useSearchParams();
   const tag = params.get("tag");
-  const status = params.get("status") as SaleStatus | null;
-  const shown = filterByTag(tag).filter(
-    (p) => !status || p.sale?.status === status,
-  );
+  const availability =
+    availabilityFilters.find((f) => f.id === params.get("status")) ??
+    availabilityFilters[0];
+
+  // Each filter's count respects the other filter, so the numbers always
+  // match what you'd see if you clicked it.
+  const byAvailability = pieces.filter(availability.test);
+  const shown = byAvailability.filter((p) => !tag || p.tags.includes(tag));
+  const countFor = (test: (typeof availabilityFilters)[number]["test"]) =>
+    pieces.filter((p) => test(p) && (!tag || p.tags.includes(tag))).length;
+  const keywordCount = (t: string) =>
+    byAvailability.filter((p) => p.tags.includes(t)).length;
 
   const set = (next: { tag?: string | null; status?: string | null }) => {
-    const merged = { tag, status, ...next };
+    const merged = { tag, status: availability.id as string | null, ...next };
     const clean: Record<string, string> = {};
     if (merged.tag) clean.tag = merged.tag;
-    if (merged.status) clean.status = merged.status;
+    if (merged.status && merged.status !== "all") clean.status = merged.status;
     setParams(clean);
   };
 
   return (
     <>
       <div className="index-head">
-        <h1>
-          {status === "available"
-            ? "Available Creations"
-            : "Catalog of Creations"}
-        </h1>
+        <h1>{headings[availability.id] ?? "Catalog of Creations"}</h1>
         <StatusLegend />
       </div>
 
-      <div className="toolbar">
-        <div className="tags" role="group" aria-label="Filter">
-          <button
-            className={!tag && !status ? "tag active" : "tag"}
-            onClick={() => setParams({})}
+      <div className="filters">
+        <div className="filter-row">
+          <span className="mono-label" id="availability-label">
+            AVAILABILITY
+          </span>
+          <div
+            className="segmented"
+            role="group"
+            aria-labelledby="availability-label"
           >
-            all
-          </button>
-          {statusFilters.map((s) => (
-            <button
-              key={s.id}
-              className={status === s.id ? "tag active" : "tag"}
-              aria-pressed={status === s.id}
-              onClick={() => set({ status: status === s.id ? null : s.id })}
-            >
-              {s.label}
-            </button>
-          ))}
-          <span className="tags-divider" aria-hidden="true" />
-          {allTags.map((t) => (
-            <button
-              key={t}
-              className={tag === t ? "tag active" : "tag"}
-              aria-pressed={tag === t}
-              onClick={() => set({ tag: tag === t ? null : t })}
-            >
-              {t}
-            </button>
-          ))}
+            {availabilityFilters.map((f) => (
+              <button
+                key={f.id}
+                className={availability.id === f.id ? "active" : ""}
+                aria-pressed={availability.id === f.id}
+                onClick={() => set({ status: f.id })}
+              >
+                {f.label} <span className="count">{countFor(f.test)}</span>
+              </button>
+            ))}
+          </div>
         </div>
+
+        <div className="filter-row">
+          <span className="mono-label" id="keyword-label">
+            KEYWORDS
+          </span>
+          <div className="tags" role="group" aria-labelledby="keyword-label">
+            {allTags.map((t) => {
+              const n = keywordCount(t);
+              return (
+                <button
+                  key={t}
+                  className={tag === t ? "tag active" : "tag"}
+                  aria-pressed={tag === t}
+                  disabled={n === 0 && tag !== t}
+                  onClick={() => set({ tag: tag === t ? null : t })}
+                >
+                  {t} <span className="count">{n}</span>
+                </button>
+              );
+            })}
+            {tag && (
+              <button className="clear" onClick={() => set({ tag: null })}>
+                Clear keyword ×
+              </button>
+            )}
+          </div>
+        </div>
+
         <Link
           to={tag ? `/present?tag=${tag}` : "/present"}
-          className="button ghost"
+          className="button ghost present-link"
         >
-          Present {tag ?? "all"} ({shown.length})
+          Present {tag ?? "all"}
         </Link>
       </div>
 

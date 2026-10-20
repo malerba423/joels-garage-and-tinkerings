@@ -92,7 +92,28 @@ button { font: inherit; color: inherit; }
 .dot-commission { border-style: dashed; border-radius: 2px; }
 .legend { display: flex; flex-wrap: wrap; gap: 16px; font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; }
 
-/* Parts index (gallery) */
+/* Catalog filters: availability (one at a time) + keywords */
+.filters { position: relative; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; padding-right: 180px; }
+.filter-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 12px; }
+.segmented { display: flex; flex-wrap: wrap; border: 1.5px solid var(--rule); background: var(--sheet); width: fit-content; max-width: 100%; }
+.segmented button {
+  min-height: 40px; padding: 8px 14px; border: 0; border-right: 1.5px solid var(--rule); background: none; cursor: pointer;
+  font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; color: var(--ink);
+}
+.segmented button:last-child { border-right: 0; }
+.segmented button:hover { color: var(--accent); }
+.segmented button.active { background: var(--ink); color: var(--paper); }
+.count { opacity: 0.6; font-size: 0.75em; margin-left: 2px; }
+.tag:disabled { opacity: 0.35; cursor: default; border-color: var(--rule); color: var(--ink); }
+.clear { min-height: 36px; padding: 6px 8px; border: 0; background: none; cursor: pointer; font-family: var(--mono); font-size: 0.8rem; color: var(--accent); text-decoration: underline; }
+.present-link { position: absolute; top: 0; right: 0; }
+@media (max-width: 860px) {
+  .filters { padding-right: 0; }
+  .filter-row { grid-template-columns: 1fr; gap: 6px; }
+  .present-link { position: static; align-self: flex-start; }
+}
+
+/* Catalog (gallery) */
 .index-head {
   display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;
   border-bottom: 2px solid var(--rule); padding-bottom: 8px; margin-bottom: 20px;

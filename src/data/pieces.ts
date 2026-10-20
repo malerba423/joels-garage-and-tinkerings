@@ -177,3 +177,36 @@ export const statusLabel: Record<SaleStatus, string> = {
   sold: "Sold",
   commission: "Can build another",
 };
+
+// Availability filter on the catalog. "For sale" is anything you can buy or
+// order (available, on hold, or can build another); "Available now" is only
+// what's on the wall and claimable today.
+export type Availability =
+  | "all"
+  | "for-sale"
+  | "available"
+  | "sold"
+  | "not-for-sale";
+
+export const availabilityFilters: {
+  id: Availability;
+  label: string;
+  test: (p: Piece) => boolean;
+}[] = [
+  { id: "all", label: "Everything", test: () => true },
+  {
+    id: "for-sale",
+    label: "For sale",
+    test: (p) =>
+      p.sale?.status === "available" ||
+      p.sale?.status === "hold" ||
+      p.sale?.status === "commission",
+  },
+  {
+    id: "available",
+    label: "Available now",
+    test: (p) => p.sale?.status === "available",
+  },
+  { id: "sold", label: "Sold", test: (p) => p.sale?.status === "sold" },
+  { id: "not-for-sale", label: "Not for sale", test: (p) => !p.sale },
+];

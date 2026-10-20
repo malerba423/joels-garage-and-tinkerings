@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="not-found">
       <h1>Part not found.</h1>
-      <Link to="/">Back to the parts index</Link>
+      <Link to="/">Back to the catalog</Link>
     </div>
   )
 }
