@@ -1,4 +1,5 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Fragment, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   allTags,
   availabilityFilters,
@@ -7,6 +8,7 @@ import {
   pieces,
   type Availability,
 } from "../data/pieces";
+import { search, searchTerms } from "../data/search";
 import { StatusLegend, StatusMark } from "../components/Shop";
 
 const headings: Partial<Record<Availability, string>> = {
@@ -19,26 +21,54 @@ const headings: Partial<Record<Availability, string>> = {
 export default function Gallery() {
   const [params, setParams] = useSearchParams();
   const tag = params.get("tag");
+  const q = params.get("q") ?? "";
+  const navigate = useNavigate();
+  const [draft, setDraft] = useState(q);
+  // Keep the box in sync when the URL changes some other way (back button, nav links)
+  const [prevQ, setPrevQ] = useState(q);
+  if (q !== prevQ) {
+    setPrevQ(q);
+    setDraft(q);
+  }
   const availability =
     availabilityFilters.find((f) => f.id === params.get("status")) ??
     availabilityFilters[0];
 
-  // Each filter's count respects the other filter, so the numbers always
-  // match what you'd see if you clicked it.
-  const byAvailability = pieces.filter(availability.test);
-  const shown = byAvailability.filter((p) => !tag || p.tags.includes(tag));
+  // Search first, then the two filters. Counts on each filter respect
+  // everything else that's set, so they match what clicking would show.
+  const results = search(pieces, q);
+  const terms = searchTerms(q);
+  const matchedAll = (n: number) => terms.length === 0 || n === terms.length;
+  const searched = results.map((r) => r.piece);
+  const byAvailability = searched.filter(availability.test);
+  const shown = results.filter(
+    (r) => availability.test(r.piece) && (!tag || r.piece.tags.includes(tag)),
+  );
   const countFor = (test: (typeof availabilityFilters)[number]["test"]) =>
-    pieces.filter((p) => test(p) && (!tag || p.tags.includes(tag))).length;
+    searched.filter((p) => test(p) && (!tag || p.tags.includes(tag))).length;
   const keywordCount = (t: string) =>
     byAvailability.filter((p) => p.tags.includes(t)).length;
 
-  const set = (next: { tag?: string | null; status?: string | null }) => {
-    const merged = { tag, status: availability.id as string | null, ...next };
-    const clean: Record<string, string> = {};
-    if (merged.tag) clean.tag = merged.tag;
-    if (merged.status && merged.status !== "all") clean.status = merged.status;
-    setParams(clean);
+  // URL for the current view with some filters changed. Keywords are plain links built from this.
+  const urlWith = (next: { tag?: string | null; status?: string | null; q?: string | null }) => {
+    const merged = { tag, status: availability.id as string | null, q, ...next };
+    const out = new URLSearchParams();
+    if (merged.status && merged.status !== "all") out.set("status", merged.status);
+    if (merged.tag) out.set("tag", merged.tag);
+    if (merged.q?.trim()) out.set("q", merged.q.trim());
+    const s = out.toString();
+    return s ? `/?${s}` : "/";
   };
+
+  const onSearch = (value: string) => {
+    setDraft(value);
+    const next = new URLSearchParams(params);
+    if (value.trim()) next.set("q", value);
+    else next.delete("q");
+    setParams(next, { replace: true }); // typing shouldn't fill up browser history
+  };
+
+  const firstPartial = shown.findIndex((r) => !matchedAll(r.matched));
 
   return (
     <>
@@ -48,21 +78,42 @@ export default function Gallery() {
       </div>
 
       <div className="filters">
+        <form
+          className="filter-row"
+          role="search"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <label className="mono-label" htmlFor="catalog-search">
+            SEARCH
+          </label>
+          <div className="search-box">
+            <input
+              id="catalog-search"
+              type="search"
+              value={draft}
+              onChange={(e) => onSearch(e.target.value)}
+              placeholder="Try “copper lamp”, “steel”, “2025” or “014”"
+              autoComplete="off"
+            />
+            {draft && (
+              <button type="button" className="clear" onClick={() => onSearch("")}>
+                Clear ×
+              </button>
+            )}
+          </div>
+        </form>
+
         <div className="filter-row">
           <span className="mono-label" id="availability-label">
             AVAILABILITY
           </span>
-          <div
-            className="segmented"
-            role="group"
-            aria-labelledby="availability-label"
-          >
+          <div className="segmented" role="group" aria-labelledby="availability-label">
             {availabilityFilters.map((f) => (
               <button
                 key={f.id}
                 className={availability.id === f.id ? "active" : ""}
                 aria-pressed={availability.id === f.id}
-                onClick={() => set({ status: f.id })}
+                onClick={() => navigate(urlWith({ status: f.id }))}
               >
                 {f.label} <span className="count">{countFor(f.test)}</span>
               </button>
@@ -70,32 +121,35 @@ export default function Gallery() {
           </div>
         </div>
 
-        <div className="filter-row">
+        <nav className="filter-row" aria-labelledby="keyword-label">
           <span className="mono-label" id="keyword-label">
             KEYWORDS
           </span>
-          <div className="tags" role="group" aria-labelledby="keyword-label">
+          <div className="keywords">
             {allTags.map((t) => {
               const n = keywordCount(t);
+              const active = tag === t;
+              if (n === 0 && !active)
+                return (
+                  <span key={t} className="keyword empty-keyword" aria-disabled="true">
+                    #{t}
+                  </span>
+                );
               return (
-                <button
+                <Link
                   key={t}
-                  className={tag === t ? "tag active" : "tag"}
-                  aria-pressed={tag === t}
-                  disabled={n === 0 && tag !== t}
-                  onClick={() => set({ tag: tag === t ? null : t })}
+                  to={urlWith({ tag: active ? null : t })}
+                  className={active ? "keyword active" : "keyword"}
+                  aria-current={active ? "true" : undefined}
                 >
-                  {t} <span className="count">{n}</span>
-                </button>
+                  #{t}
+                  <span className="count">{n}</span>
+                  {active && <span className="visually-hidden"> (click to remove)</span>}
+                </Link>
               );
             })}
-            {tag && (
-              <button className="clear" onClick={() => set({ tag: null })}>
-                Clear keyword ×
-              </button>
-            )}
           </div>
-        </div>
+        </nav>
 
         <Link
           to={tag ? `/present?tag=${tag}` : "/present"}
@@ -105,26 +159,46 @@ export default function Gallery() {
         </Link>
       </div>
 
+      {(terms.length > 0 || tag) && (
+        <p className="result-line" aria-live="polite">
+          {shown.length} {shown.length === 1 ? "creation" : "creations"}
+          {terms.length > 0 && <> matching “{q.trim()}”</>}
+          {tag && <> tagged #{tag}</>}
+          {" · "}
+          <Link to={urlWith({ tag: null, q: null })}>
+            reset
+          </Link>
+        </p>
+      )}
+
       {shown.length === 0 ? (
-        <p className="empty">Nothing on this shelf right now.</p>
+        <p className="empty">Nothing on this shelf matches that.</p>
       ) : (
         <div className="parts-grid">
-          {shown.map((p) => (
-            <Link key={p.slug} to={`/piece/${p.slug}`} className="part-card">
-              <img src={cover(p).src} alt={p.title} loading="lazy" />
-              {p.images.length > 1 && (
-                <span className="photo-count">{p.images.length} sheets</span>
+          {shown.map((r, i) => (
+            <Fragment key={r.piece.slug}>
+              {i === firstPartial && firstPartial > 0 && (
+                <p className="grid-divider">
+                  Partial matches: some of your words, not all
+                </p>
               )}
-              <span className="part-card-bar">
-                <span>
-                  {partNo(p)} {p.title}
+              <Link to={`/piece/${r.piece.slug}`} className="part-card">
+                <img src={cover(r.piece).src} alt={r.piece.title} loading="lazy" />
+                {r.piece.images.length > 1 && (
+                  <span className="photo-count">{r.piece.images.length} sheets</span>
+                )}
+                <span className="part-card-bar">
+                  <span>
+                    {partNo(r.piece)} {r.piece.title}
+                  </span>
+                  {r.piece.sale && <StatusMark status={r.piece.sale.status} />}
                 </span>
-                {p.sale && <StatusMark status={p.sale.status} />}
-              </span>
-            </Link>
+              </Link>
+            </Fragment>
           ))}
         </div>
       )}
     </>
   );
+
 }
