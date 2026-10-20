@@ -129,7 +129,7 @@ export default function Gallery() {
               if (n === 0 && !active)
                 return (
                   <span key={t} className="keyword empty-keyword" aria-disabled="true">
-                    #{t}
+                    {t}
                   </span>
                 );
               return (
@@ -139,7 +139,7 @@ export default function Gallery() {
                   className={active ? "keyword active" : "keyword"}
                   aria-current={active ? "true" : undefined}
                 >
-                  #{t}
+                  {t}
                   <span className="count">{n}</span>
                   {active && <span className="visually-hidden"> (click to remove)</span>}
                 </Link>
@@ -160,7 +160,7 @@ export default function Gallery() {
         <p className="result-line" aria-live="polite">
           {shown.length} {shown.length === 1 ? "creation" : "creations"}
           {terms.length > 0 && <> matching “{q.trim()}”</>}
-          {tag && <> tagged #{tag}</>}
+          {tag && <> tagged “{tag}”</>}
           {" · "}
           <Link to={urlWith({ tag: null, q: null })}>
             reset
