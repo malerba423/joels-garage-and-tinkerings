@@ -1,43 +1,58 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import { allTags, cover, filterByTag, partNo, type SaleStatus } from '../data/pieces'
-import { StatusLegend, StatusMark } from '../components/Shop'
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  allTags,
+  cover,
+  filterByTag,
+  partNo,
+  type SaleStatus,
+} from "../data/pieces";
+import { StatusLegend, StatusMark } from "../components/Shop";
 
 const statusFilters: { id: SaleStatus; label: string }[] = [
-  { id: 'available', label: 'available' },
-  { id: 'commission', label: 'can build another' },
-  { id: 'sold', label: 'sold' },
-]
+  { id: "available", label: "available" },
+  { id: "commission", label: "can build another" },
+  { id: "sold", label: "sold" },
+];
 
 export default function Gallery() {
-  const [params, setParams] = useSearchParams()
-  const tag = params.get('tag')
-  const status = params.get('status') as SaleStatus | null
-  const shown = filterByTag(tag).filter((p) => !status || p.sale?.status === status)
+  const [params, setParams] = useSearchParams();
+  const tag = params.get("tag");
+  const status = params.get("status") as SaleStatus | null;
+  const shown = filterByTag(tag).filter(
+    (p) => !status || p.sale?.status === status,
+  );
 
   const set = (next: { tag?: string | null; status?: string | null }) => {
-    const merged = { tag, status, ...next }
-    const clean: Record<string, string> = {}
-    if (merged.tag) clean.tag = merged.tag
-    if (merged.status) clean.status = merged.status
-    setParams(clean)
-  }
+    const merged = { tag, status, ...next };
+    const clean: Record<string, string> = {};
+    if (merged.tag) clean.tag = merged.tag;
+    if (merged.status) clean.status = merged.status;
+    setParams(clean);
+  };
 
   return (
     <>
       <div className="index-head">
-        <h1>{status === 'available' ? 'Available parts' : 'Parts index'}</h1>
+        <h1>
+          {status === "available"
+            ? "Available Creations"
+            : "Catalog of Creations"}
+        </h1>
         <StatusLegend />
       </div>
 
       <div className="toolbar">
         <div className="tags" role="group" aria-label="Filter">
-          <button className={!tag && !status ? 'tag active' : 'tag'} onClick={() => setParams({})}>
+          <button
+            className={!tag && !status ? "tag active" : "tag"}
+            onClick={() => setParams({})}
+          >
             all
           </button>
           {statusFilters.map((s) => (
             <button
               key={s.id}
-              className={status === s.id ? 'tag active' : 'tag'}
+              className={status === s.id ? "tag active" : "tag"}
               aria-pressed={status === s.id}
               onClick={() => set({ status: status === s.id ? null : s.id })}
             >
@@ -48,7 +63,7 @@ export default function Gallery() {
           {allTags.map((t) => (
             <button
               key={t}
-              className={tag === t ? 'tag active' : 'tag'}
+              className={tag === t ? "tag active" : "tag"}
               aria-pressed={tag === t}
               onClick={() => set({ tag: tag === t ? null : t })}
             >
@@ -56,8 +71,11 @@ export default function Gallery() {
             </button>
           ))}
         </div>
-        <Link to={tag ? `/present?tag=${tag}` : '/present'} className="button ghost">
-          Present {tag ?? 'all'} ({shown.length})
+        <Link
+          to={tag ? `/present?tag=${tag}` : "/present"}
+          className="button ghost"
+        >
+          Present {tag ?? "all"} ({shown.length})
         </Link>
       </div>
 
@@ -68,7 +86,9 @@ export default function Gallery() {
           {shown.map((p) => (
             <Link key={p.slug} to={`/piece/${p.slug}`} className="part-card">
               <img src={cover(p).src} alt={p.title} loading="lazy" />
-              {p.images.length > 1 && <span className="photo-count">{p.images.length} sheets</span>}
+              {p.images.length > 1 && (
+                <span className="photo-count">{p.images.length} sheets</span>
+              )}
               <span className="part-card-bar">
                 <span>
                   {partNo(p)} {p.title}
@@ -80,5 +100,5 @@ export default function Gallery() {
         </div>
       )}
     </>
-  )
+  );
 }
