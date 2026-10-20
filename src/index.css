@@ -184,12 +184,14 @@ button { font: inherit; color: inherit; }
 }
 .index-head h1 { margin: 0; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; }
 .parts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-.part-card { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--rule); background: var(--sheet); text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
-.part-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rule); }
-.part-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.part-card { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--rule); background: var(--sheet); text-decoration: none; overflow: hidden; }
+.part-card:hover img { transform: scale(1.01); }
+.part-card:hover .part-card-bar { background: var(--accent); color: var(--accent-ink); }
+.part-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; transform-origin: top left; transition: transform 0.3s ease; }
 .part-card-bar {
   display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px;
   border-top: 1.5px solid var(--rule); font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase;
+  transition: background 0.15s, color 0.15s;
 }
 .photo-count {
   position: absolute; right: 8px; top: 8px; padding: 2px 8px; background: var(--paper); border: 1.5px solid var(--rule);
