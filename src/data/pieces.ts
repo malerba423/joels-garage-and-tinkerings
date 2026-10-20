@@ -71,7 +71,7 @@ export const pieces: Piece[] = [
     ],
     year: 2026,
     medium: "Steel, reclaimed wood",
-    tags: ["desk", "table", "office", "standing", "bar-height", "garage"],
+    tags: ["lamp", "reclaimed", "wine-opener"],
     notes:
       "4 inch channel steel frame with adjustable footsies and a reclaimed wood top. Shot under a single shop light.",
     sale: { status: "available", price: "$100.00" }, // example: change or remove
