@@ -118,7 +118,7 @@ export default function Gallery() {
           </div>
         </div>
 
-        <nav className="filter-row" aria-labelledby="keyword-label">
+        <nav className="filter-row filter-row-text" aria-labelledby="keyword-label">
           <span className="mono-label" id="keyword-label">
             KEYWORDS
           </span>

@@ -123,7 +123,13 @@ button { font: inherit; color: inherit; }
 
 /* Catalog filters: availability (one at a time) + keywords */
 .filters { position: relative; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; padding-right: 180px; }
-.filter-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 12px; }
+.filter-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: start; gap: 12px; }
+/* Row labels line up with the TOP of their control. text-box trims the label (and the keyword
+   links) to the tops of their capital letters, so the alignment doesn't depend on font metrics:
+   SEARCH / AVAILABILITY sit flush with the top edge of the box; KEYWORDS gets the same top
+   padding as the keyword links so it lines up with the first line of keyword text. */
+.filter-row > .mono-label { line-height: 1; text-box: trim-both cap alphabetic; }
+.filter-row-text > .mono-label { padding-top: 10px; }
 .segmented { display: flex; flex-wrap: wrap; border: 1.5px solid var(--rule); background: var(--sheet); width: fit-content; max-width: 100%; }
 .segmented button {
   min-height: 40px; padding: 8px 14px; border: 0; border-right: 1.5px solid var(--rule); background: none; cursor: pointer;
@@ -139,6 +145,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 860px) {
   .filters { padding-right: 0; }
   .filter-row { grid-template-columns: 1fr; gap: 6px; }
+  .filter-row > .mono-label, .filter-row-text > .mono-label { padding-top: 0; }
   .present-link { position: static; align-self: flex-start; }
 }
 
@@ -149,8 +156,8 @@ button { font: inherit; color: inherit; }
   background: var(--sheet); color: var(--ink); font-family: var(--mono); font-size: 0.95rem;
 }
 .search-box input::placeholder { color: var(--muted); }
-.keywords { display: flex; flex-wrap: wrap; gap: 4px 16px; font-family: var(--mono); font-size: 0.9rem; }
-.keyword { padding: 6px 0; color: var(--ink); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); text-underline-offset: 4px; }
+.keywords { display: flex; flex-wrap: wrap; gap: 0 16px; font-family: var(--mono); font-size: 0.9rem; }
+.keyword { padding: 10px 0; text-box: trim-both cap alphabetic; color: var(--ink); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); text-underline-offset: 4px; }
 .keyword:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .keyword.active { color: var(--accent); font-weight: 600; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 .keyword.active::after { content: " ×"; }
