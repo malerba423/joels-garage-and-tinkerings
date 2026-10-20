@@ -12,8 +12,27 @@ export type PieceImage = {
   caption?: string;
 };
 
+// Selling. Leave `sale` off a piece and it's just in the gallery, not for sale.
+//   available  — on the wall, can be claimed. `price` is shown as written ("$450").
+//                `buyLink` is where "Claim" goes (e.g. a Stripe Payment Link);
+//                without one, Claim opens an email to you.
+//   hold       — someone's thinking it over. `holdUntil` is shown ("Thu").
+//   sold       — red dot. `soldTo` is shown if set ("Maria, Portland").
+//   commission — can build another like it; links to the work-order page.
+export type SaleStatus = "available" | "hold" | "sold" | "commission";
+
+export type Sale = {
+  status: SaleStatus;
+  price?: string;
+  buyLink?: string;
+  holdUntil?: string;
+  soldTo?: string;
+};
+
 export type Piece = {
   slug: string;
+  /** Part number on the tag and in the index. Defaults to the piece's position in this list. */
+  no?: number;
   title: string;
   images: [PieceImage, ...PieceImage[]];
   year?: number;
@@ -21,6 +40,9 @@ export type Piece = {
   size?: string;
   tags: string[];
   notes?: string;
+  /** What the parts tag lists. Defaults to `medium`. */
+  parts?: string;
+  sale?: Sale;
 };
 
 export const pieces: Piece[] = [
@@ -36,6 +58,7 @@ export const pieces: Piece[] = [
     tags: ["desk", "table", "office", "standing", "bar-height", "garage"],
     notes:
       "4 inch channel steel frame with adjustable footsies and a reclaimed wood top. Shot under a single shop light.",
+    sale: { status: "commission" }, // example: change or remove
   },
   {
     slug: "rust-bucket-carburetor",
@@ -80,6 +103,7 @@ export const pieces: Piece[] = [
     size: "18 in tall",
     tags: ["build", "sculpture"],
     notes: "Bent by hand around a coffee can.",
+    sale: { status: "available" }, // example: add a price ("$450") and a buyLink
   },
   {
     slug: "garage-door-mural",
@@ -143,3 +167,13 @@ export function filterByTag(tag: string | null) {
 }
 
 export const cover = (p: Piece) => p.images[0];
+
+export const partNo = (p: Piece) =>
+  String(p.no ?? pieces.indexOf(p) + 1).padStart(3, "0");
+
+export const statusLabel: Record<SaleStatus, string> = {
+  available: "Available",
+  hold: "On hold",
+  sold: "Sold",
+  commission: "Can build another",
+};
