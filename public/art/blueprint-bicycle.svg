@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6fb0"/><stop offset="1" stop-color="#0b1a2b"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<circle cx="992" cy="420" r="260" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="12"/>
+<rect x="288" y="550" width="544" height="220" fill="#fff" fill-opacity=".12"/>
+<text x="96" y="920" font-family="Georgia, serif" font-size="55" fill="#fff" fill-opacity=".7">placeholder · blueprint-bicycle</text>
+</svg>
