@@ -78,7 +78,7 @@ function PieceView({ index }: { index: number }) {
         </div>
 
         <aside className="detail-info">
-          <div className="detail-heading">
+          <div className="detail-heading plate">
             <span className="mono-label">PART NO. {no}{piece.tags[0] ? ` — ${piece.tags[0].toUpperCase()}` : ''}</span>
             <h1>{piece.title}</h1>
           </div>

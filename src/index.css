@@ -1,34 +1,47 @@
 /* Shop Manual: the site as a service manual. Pieces are part numbers,
    photos are figures on sheets, commissions are work orders. */
 :root {
-  --paper: #efede4;
+  /* Concrete kit: cool shop surfaces, one hot accent, warmth only where the work is */
+  --paper: #f4f3ef;       /* the sheet on the wall, cooler so it sits on grey concrete */
   --sheet: #ffffff;
-  --ink: #1d2a3a;
-  --muted: #4a5768;
-  --rule: #1d2a3a;
+  --ink: #22262b;         /* graphite */
+  --muted: #4f545b;
+  --rule: #22262b;
+  --rule-soft: #8b8f94;   /* form-tie grey */
   --accent: #b33a0a;      /* safety orange, dark enough for text */
   --accent-ink: #ffffff;
-  --sold: #c0392b;        /* the red dot */
-  --tag: #e8d3a3;
-  --tag-ink: #3b2f1e;
+  --sold: #b8241c;        /* the red dot */
+  --tag: #d9b07a;         /* pine */
+  --tag-ink: #3b2a17;
+  --steel: #c3c7cb;
+  --rivet: #7d8186;
+  --grid: rgba(34, 38, 43, 0.07);
+  --pencil: #4f545b;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --sans: 'IBM Plex Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --stencil: 'Big Shoulders Stencil Display', 'IBM Plex Sans Condensed', sans-serif;
+  --hand: 'Caveat', 'Bradley Hand', cursive;
   color-scheme: light dark;
   font: 16px/1.45 var(--sans);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
 @media (prefers-color-scheme: dark) {
-  /* Dark mode reads as a blueprint */
+  /* Dark mode: the same shop after hours */
   :root {
-    --paper: #13202f;
-    --sheet: #182838;
-    --ink: #e4e8ee;
-    --muted: #a3b1c2;
-    --rule: #8aa0b8;
+    --paper: #1c1f23;
+    --sheet: #24282d;
+    --ink: #e8e6e1;
+    --muted: #a9adb3;
+    --rule: #8b8f94;
+    --rule-soft: #5a5f66;
     --accent: #f0814a;
-    --accent-ink: #13202f;
-    --sold: #ff5a4a;
+    --accent-ink: #1c1f23;
+    --sold: #e0443a;
+    --steel: #4a4f55;
+    --rivet: #2a2e33;
+    --grid: rgba(232, 230, 225, 0.05);
+    --pencil: #b9bdc3;
   }
 }
 
@@ -38,7 +51,7 @@
 body {
   margin: 0;
   background: #cbc8c1 url('/textures/concrete.jpg') repeat;
-  background-size: 700px;
+  background-size: cover;
 }
 @media (prefers-color-scheme: dark) {
   body { background-image: linear-gradient(rgba(10, 14, 20, 0.6), rgba(10, 14, 20, 0.6)), url('/textures/concrete.jpg'); }
@@ -52,7 +65,11 @@ button { font: inherit; color: inherit; }
 /* Frame */
 .site {
   max-width: 1400px; margin: 0 auto; padding: 0 32px; min-height: 100vh; display: flex; flex-direction: column;
-  background: var(--paper); border-inline: 2px solid var(--rule); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(20, 24, 30, 0.25);
+  background-color: var(--paper);
+  /* faint drafting grid on the sheet */
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-inline: 2px solid var(--rule); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(20, 24, 30, 0.25);
 }
 @media (min-width: 1480px) { body { padding: 40px 0; } .site { min-height: calc(100vh - 80px); border-block: 2px solid var(--rule); } }
 .site main { flex: 1; }
@@ -62,7 +79,8 @@ button { font: inherit; color: inherit; }
 }
 .site-title {
   display: flex; align-items: center; gap: 14px; text-decoration: none;
-  font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); text-transform: uppercase; letter-spacing: 0.02em;
+  font-family: var(--stencil); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.4rem); line-height: 1;
+  text-transform: uppercase; letter-spacing: 0.01em;
 }
 .badge { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; border: 2px solid var(--rule); padding: 3px 8px; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.875rem; text-transform: uppercase; }
@@ -147,7 +165,7 @@ button { font: inherit; color: inherit; }
   display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;
   border-bottom: 2px solid var(--rule); padding-bottom: 8px; margin-bottom: 20px;
 }
-.index-head h1 { margin: 0; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; }
+.index-head h1 { margin: 0; font-family: var(--stencil); font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1; font-weight: 800; text-transform: uppercase; }
 .parts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 .part-card { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--rule); background: var(--sheet); text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
 .part-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--rule); }
@@ -176,11 +194,25 @@ button { font: inherit; color: inherit; }
 .detail-image img { max-height: 78vh; object-fit: contain; margin: 0 auto; }
 .detail-info { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 18px; align-items: stretch; }
 .detail-heading { display: flex; flex-direction: column; gap: 4px; }
-.detail-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1; font-weight: 700; text-transform: uppercase; }
+.detail-heading h1 { margin: 0; font-family: var(--stencil); font-size: clamp(2.2rem, 4.5vw, 3.1rem); line-height: 0.95; font-weight: 800; text-transform: uppercase; }
 .spec { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.875rem; background: var(--sheet); }
 .spec th, .spec td { border: 1.5px solid var(--rule); padding: 8px 10px; text-align: left; vertical-align: top; }
 .spec th { width: 34%; font-weight: 400; color: var(--muted); text-transform: uppercase; }
-.notes { margin: 0; font-size: 1.05rem; }
+.notes { margin: 0; font-family: var(--hand); font-weight: 500; font-size: 1.65rem; line-height: 1.15; color: var(--pencil); }
+
+/* Riveted steel plate for the piece's wall label */
+.plate {
+  position: relative; padding: 18px 24px; border: 1px solid var(--rule-soft); color: var(--ink);
+  background-color: var(--steel);
+  background-image:
+    radial-gradient(circle 4px at 10px 10px, var(--rivet) 3px, transparent 4px),
+    radial-gradient(circle 4px at calc(100% - 10px) 10px, var(--rivet) 3px, transparent 4px),
+    radial-gradient(circle 4px at 10px calc(100% - 10px), var(--rivet) 3px, transparent 4px),
+    radial-gradient(circle 4px at calc(100% - 10px) calc(100% - 10px), var(--rivet) 3px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, rgba(0, 0, 0, 0.04) 1px 3px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+.plate .mono-label { color: var(--ink); }
 .actions { display: flex; flex-direction: column; gap: 10px; }
 .detail-info .tags, .detail-info > .button.ghost { align-self: flex-start; }
 .prev-next { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; color: var(--muted); }
@@ -248,7 +280,7 @@ button { font: inherit; color: inherit; }
 }
 
 .not-found { padding: 80px 0; text-align: center; font-family: var(--mono); }
-.not-found h1 { font-family: var(--sans); text-transform: uppercase; }
+.not-found h1 { font-family: var(--stencil); font-size: 3rem; text-transform: uppercase; }
 
 /* Presentation mode (unchanged look: it's for showing the work, full screen) */
 .present { position: fixed; inset: 0; background: #0b0a09; color: #eee; display: grid; place-items: center; overflow: hidden; }
