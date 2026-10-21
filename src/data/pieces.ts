@@ -10,6 +10,8 @@ export type PieceImage = {
   width: number;
   height: number;
   caption?: string;
+  /** Small copy for the grid and thumbnail strip. Filled in below; don't set it by hand. */
+  thumb?: string;
 };
 
 // Selling. Leave `sale` off a piece and it's just in the gallery, not for sale.
@@ -253,7 +255,10 @@ for (const key of ["no", "slug"] as const) {
 const base: string = import.meta.env?.BASE_URL ?? "/";
 const withBase = (p: Piece): Piece => ({
   ...p,
-  images: p.images.map((img) => ({ ...img, src: base + img.src.replace(/^\//, "") })) as Piece["images"],
+  images: p.images.map((img) => {
+    const path = img.src.replace(/^\//, "");
+    return { ...img, src: base + path, thumb: base + path.replace(/^art\//, "art/thumbs/") };
+  }) as Piece["images"],
 });
 
 // Listed newest first. Within a year, the higher part number counts as newer.

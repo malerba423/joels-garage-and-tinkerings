@@ -137,7 +137,7 @@ function PieceView({ index }: { index: number }) {
                   onClick={() => setSelected(i)}
                   aria-label={img.caption ?? `Sheet ${i + 1}`}
                 >
-                  <img src={img.src} alt="" />
+                  <img src={img.thumb} alt="" loading="lazy" />
                 </button>
               ))}
             </div>

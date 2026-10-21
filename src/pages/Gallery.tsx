@@ -194,7 +194,7 @@ export default function Gallery() {
             <Fragment key={r.piece.slug}>
               <Link to={`/piece/${r.piece.slug}`} className="part-card">
                 <img
-                  src={cover(r.piece).src}
+                  src={cover(r.piece).thumb}
                   alt={r.piece.title}
                   loading="lazy"
                 />
