@@ -200,7 +200,7 @@ button { font: inherit; color: inherit; }
   transition: background 0.15s, color 0.15s;
 }
 .part-card-bar .dot { margin-top: calc((1lh - 12px) / 2); }
-.photo-count {
+.year-badge {
   position: absolute; right: 8px; top: 8px; padding: 2px 8px; background: var(--paper); border: 1.5px solid var(--rule);
   font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; pointer-events: none;
 }
@@ -288,8 +288,6 @@ button { font: inherit; color: inherit; }
 }
 .field textarea { resize: vertical; }
 .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chips .tag { min-height: 44px; }
 .choice-list { display: flex; flex-direction: column; gap: 8px; }
 .choice { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1.5px solid var(--rule); background: var(--sheet); cursor: pointer; }
 .choice.active { border: 2px solid var(--accent); }

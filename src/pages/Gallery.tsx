@@ -99,7 +99,7 @@ export default function Gallery() {
               type="search"
               value={draft}
               onChange={(e) => onSearch(e.target.value)}
-              placeholder="Try “copper lamp”, “steel”, “2025” or “014”"
+              placeholder="Try “live edge”, “steel”, “2025”, or “004”"
               autoComplete="off"
             />
             {draft && (
@@ -174,13 +174,6 @@ export default function Gallery() {
             })}
           </div>
         </nav>
-
-        <Link
-          to={tag ? `/present?tag=${tag}` : "/present"}
-          className="button ghost present-link"
-        >
-          Present {tag ?? "all"}
-        </Link>
       </div>
 
       {(terms.length > 0 || tag) && (
@@ -205,10 +198,8 @@ export default function Gallery() {
                   alt={r.piece.title}
                   loading="lazy"
                 />
-                {r.piece.images.length > 1 && (
-                  <span className="photo-count">
-                    {r.piece.images.length} photos
-                  </span>
+                {r.piece.year && (
+                  <span className="year-badge">{r.piece.year}</span>
                 )}
                 <span className="part-card-bar">
                   <span>

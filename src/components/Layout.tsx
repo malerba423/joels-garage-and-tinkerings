@@ -1,10 +1,12 @@
-import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom'
+import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 
 export default function Layout() {
-  const [params] = useSearchParams()
-  const { pathname } = useLocation()
-  const availableView = pathname === '/' && params.get('status') === 'available'
-  const current = (on: boolean) => (on ? { className: 'active', 'aria-current': 'page' as const } : {})
+  const [params] = useSearchParams();
+  const { pathname } = useLocation();
+  const availableView =
+    pathname === "/" && params.get("status") === "available";
+  const current = (on: boolean) =>
+    on ? { className: "active", "aria-current": "page" as const } : {};
   return (
     <div className="site">
       <header className="site-header">
@@ -13,14 +15,14 @@ export default function Layout() {
           <span>Joel's Garage &amp; Tinkerings</span>
         </Link>
         <nav className="site-nav">
-          <Link to="/" {...current(pathname === '/' && !availableView)}>
+          <Link to="/" {...current(pathname === "/" && !availableView)}>
             01 Catalog
           </Link>
           <Link to="/?status=available" {...current(availableView)}>
             02 Available
           </Link>
-          <Link to="/work-orders" {...current(pathname === '/work-orders')}>
-            03 Work orders
+          <Link to="/work-orders" {...current(pathname === "/work-orders")}>
+            03 Commissions
           </Link>
           <Link to="/present" className="button">
             ▶ Present
@@ -32,8 +34,8 @@ export default function Layout() {
       </main>
       <footer className="site-footer">
         <span>© {new Date().getFullYear()} Joel</span>
-        <span>Every piece ships with a numbered parts tag.</span>
+        <span>Every piece ships with its numbered stock tag.</span>
       </footer>
     </div>
-  )
+  );
 }

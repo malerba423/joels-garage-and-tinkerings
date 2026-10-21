@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { cover, partNo, pieces } from "../data/pieces";
 import { mailto } from "../data/shop";
 
-const heights = ["Sitting", "Standing", "Bar height", "Not a table"];
 const woods = [
   {
     id: "rack",
@@ -26,7 +25,6 @@ export default function WorkOrder() {
     (p) => p.sale?.status === "commission" || p.sale?.status === "sold",
   );
   const [from, setFrom] = useState(base?.slug ?? buildable[0]?.slug ?? "");
-  const [height, setHeight] = useState("");
   const [wood, setWood] = useState("rack");
   const picked = pieces.find((p) => p.slug === from);
 
@@ -36,7 +34,6 @@ export default function WorkOrder() {
     const ref = picked ? `${partNo(picked)} ${picked.title}` : "something new";
     const body = [
       `Based on: ${ref}`,
-      `Height: ${height || "-"}`,
       `Wood: ${woods.find((w) => w.id === wood)?.label}`,
       `Rough size: ${f.get("size") || "-"}`,
       "",
@@ -44,7 +41,7 @@ export default function WorkOrder() {
       "",
       `Reply to: ${f.get("email")}`,
     ].join("\n");
-    window.location.href = mailto(`Work order: ${ref}`, body);
+    window.location.href = mailto(`Commission: ${ref}`, body);
   };
 
   return (
@@ -54,22 +51,22 @@ export default function WorkOrder() {
           <figure className="sheet">
             <img src={cover(picked).src} alt={picked.title} />
             <figcaption>
-              <span>REF. PART NO. {partNo(picked)}</span>
+              <span>REF. ITEM NO. {partNo(picked)}</span>
               <span>{picked.title.toUpperCase()}</span>
             </figcaption>
           </figure>
         ) : (
-          <div className="sheet sheet-blank">New part, no drawing yet</div>
+          <div className="sheet sheet-blank">New item, no plans yet</div>
         )}
         <p className="mono-note">
-          Nothing to pay until you've both agreed on the drawing. A deposit
-          holds your spot on the bench.
+          Nothing to pay until we've both agreed on a plan. A deposit will hold
+          your spot on the bench.
         </p>
       </div>
 
       <form className="work-order-form" onSubmit={submit}>
         <div className="detail-heading">
-          <span className="mono-label">WORK ORDER</span>
+          <span className="mono-label">COMMISSION</span>
           <h1>Make me one like this</h1>
         </div>
 
@@ -86,24 +83,7 @@ export default function WorkOrder() {
         </label>
 
         <fieldset className="field">
-          <legend className="mono-label">HEIGHT</legend>
-          <div className="chips">
-            {heights.map((h) => (
-              <button
-                type="button"
-                key={h}
-                className={height === h ? "tag active" : "tag"}
-                aria-pressed={height === h}
-                onClick={() => setHeight(h)}
-              >
-                {h}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset className="field">
-          <legend className="mono-label">MATERIAL</legend>
+          <legend className="mono-label">MATERIALS</legend>
           <div className="choice-list">
             {woods.map((w) => (
               <label
@@ -151,12 +131,12 @@ export default function WorkOrder() {
           <textarea
             name="notes"
             rows={4}
-            placeholder="A photo of the room helps."
+            placeholder="A photo of the room helps. Please feel free to include one in a follow-up email."
           />
         </label>
 
         <button type="submit" className="button block">
-          Send work order →
+          Request commission →
         </button>
       </form>
     </div>

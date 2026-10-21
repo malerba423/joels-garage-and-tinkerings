@@ -31,8 +31,8 @@ export type Sale = {
 
 export type Piece = {
   slug: string;
-  /** Part number on the tag and in the index. Defaults to the piece's position in this list. */
-  no?: number;
+  /** Part number on the tag and in the index. Permanent: never reuse or change one. */
+  no: number;
   title: string;
   images: [PieceImage, ...PieceImage[]];
   year?: number;
@@ -45,15 +45,16 @@ export type Piece = {
   sale?: Sale;
 };
 
-export const pieces: Piece[] = [
+const catalog: Piece[] = [
   {
     slug: "rustic-megadesk",
+    no: 1,
     title: "Rustic Mega Desk",
     images: [
       { src: "/art/standing-desk-1.jpg", width: 4032, height: 3024 },
       { src: "/art/standing-desk-2.jpg", width: 4032, height: 3024 },
     ],
-    year: 2026,
+    year: 2023,
     medium: "Steel, reclaimed wood",
     tags: ["desk", "table", "office", "standing", "bar-height", "garage"],
     notes:
@@ -62,6 +63,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "wineopener-lamp",
+    no: 2,
     title: "Wine Opener Lamp",
     images: [
       { src: "/art/wineopener-lamp-1.jpg", width: 4032, height: 3024 },
@@ -69,7 +71,7 @@ export const pieces: Piece[] = [
       { src: "/art/wineopener-lamp-3.jpg", width: 4032, height: 3024 },
       { src: "/art/wineopener-lamp-4.jpg", width: 4032, height: 3024 },
     ],
-    year: 2026,
+    year: 2023,
     medium: "Steel, reclaimed wood",
     tags: ["lamp", "reclaimed", "wine-opener"],
     notes:
@@ -78,13 +80,14 @@ export const pieces: Piece[] = [
   },
   {
     slug: "maple-steel-bench",
+    no: 3,
     title: "Steel & Maple Bench",
     images: [
       { src: "/art/maple-bench-1.jpeg", width: 4032, height: 3024 },
       { src: "/art/maple-bench-2.jpeg", width: 4032, height: 3024 },
       { src: "/art/maple-bench-3.jpeg", width: 4032, height: 3024 },
     ],
-    year: 2026,
+    year: 2024,
     medium: "Steel, silver maple",
     tags: ["bench", "rustic", "maple"],
     notes:
@@ -93,6 +96,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "retrofit-softclose-kitchen-pantry",
+    no: 4,
     title: "Retrofit Soft-Close Kitchen Pantry",
     images: [
       { src: "/art/drawers-1.jpeg", width: 4032, height: 3024 },
@@ -109,6 +113,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "castle-joint-bedframe",
+    no: 5,
     title: "Castle Joint Bedframe",
     images: [
       { src: "/art/bedframe-1.jpeg", width: 4032, height: 3024 },
@@ -125,6 +130,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "entryway-tile-floor",
+    no: 6,
     title: "Entryway Tile Floor",
     images: [
       { src: "/art/tile-floor-1.jpeg", width: 4032, height: 3024 },
@@ -155,6 +161,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "live-edge-maple-shelf",
+    no: 7,
     title: "Live Edge Maple Shelf",
     images: [
       { src: "/art/maple-shelf-1.jpg", width: 4032, height: 3024 },
@@ -173,6 +180,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "dia-de-los-muertos-altar",
+    no: 8,
     title: "Dia de los Muertos Altar",
     images: [
       { src: "/art/altar-1.jpeg", width: 4032, height: 3024 },
@@ -180,7 +188,7 @@ export const pieces: Piece[] = [
       { src: "/art/altar-3.jpeg", width: 4032, height: 3024 },
       { src: "/art/altar-4.jpeg", width: 4032, height: 3024 },
     ],
-    year: 2026,
+    year: 2025,
     medium: "Basic dimensional lumber",
     tags: ["plum", "altar", "dia de los muertos"],
     notes:
@@ -188,6 +196,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "driftwood-spoon-knife",
+    no: 9,
     title: "Driftwood Spoon & Knife",
     images: [
       { src: "/art/spoon-knife-1.jpg", width: 4032, height: 3024 },
@@ -206,6 +215,7 @@ export const pieces: Piece[] = [
   /*
   {
     slug: "rust-bucket-carburetor",
+    no: 0,
     title: "Rust Bucket Carburetor",
     images: [
       { src: "/art/rust-bucket-carburetor.svg", width: 1600, height: 1200 },
@@ -217,6 +227,7 @@ export const pieces: Piece[] = [
   },
   {
     slug: "night-shift-sketch",
+    no: 0,
     title: "Night Shift Sketch",
     images: [{ src: "/art/night-shift-sketch.svg", width: 1000, height: 1500 }],
     year: 2025,
@@ -227,6 +238,21 @@ export const pieces: Piece[] = [
   */
 ];
 
+// Part numbers and slugs must be unique. This runs whenever the data loads, and the build
+// imports this file (see vite.config.ts), so a duplicate fails `npm run build` too.
+for (const key of ["no", "slug"] as const) {
+  const seen = new Set<unknown>();
+  for (const p of catalog) {
+    if (seen.has(p[key])) throw new Error(`Two pieces share ${key} ${JSON.stringify(p[key])}`);
+    seen.add(p[key]);
+  }
+}
+
+// Listed newest first. Within a year, the higher part number counts as newer.
+export const pieces = [...catalog].sort(
+  (a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity) || b.no - a.no,
+);
+
 export const allTags = [...new Set(pieces.flatMap((p) => p.tags))].sort();
 
 export function filterByTag(tag: string | null) {
@@ -235,8 +261,7 @@ export function filterByTag(tag: string | null) {
 
 export const cover = (p: Piece) => p.images[0];
 
-export const partNo = (p: Piece) =>
-  String(p.no ?? pieces.indexOf(p) + 1).padStart(3, "0");
+export const partNo = (p: Piece) => String(p.no).padStart(3, "0");
 
 export const statusLabel: Record<SaleStatus, string> = {
   available: "Available",

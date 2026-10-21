@@ -9,8 +9,8 @@ export const shop = {
       title: "Garage pickup",
       detail: "Free. See the bench while you're here.",
     },
-    { title: "Hand delivered", detail: "Within 30 miles. $50 fee." },
-    { title: "Crated & shipped", detail: "Tracked. Prices varies $100+." },
+    { title: "Hand delivered", detail: "Within 30 miles. $50 delivery fee." },
+    { title: "Crated & shipped", detail: "Tracked. Price varies." },
   ],
 };
 
