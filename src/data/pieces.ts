@@ -153,6 +153,21 @@ export const pieces: Piece[] = [
     notes:
       "My asshole cat bit a bunch of holes in the washing machine greywater out hose so I got to do a fun mid-winter emergency flooring project. Thanks baby Franco.",
   },
+  {
+    slug: "dia-de-los-muertos-altar",
+    title: "Dia de los Muertos Altar",
+    images: [
+      { src: "/art/altar-1.jpeg", width: 4032, height: 3024 },
+      { src: "/art/altar-2.jpeg", width: 4032, height: 3024 },
+      { src: "/art/altar-3.jpeg", width: 4032, height: 3024 },
+      { src: "/art/altar-4.jpeg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Basic dimensional lumber",
+    tags: ["plum", "altar", "dia de los muertos"],
+    notes:
+      "I'd been wanting to make a Dia de los Muertos altar for a while and finally got around to it. I used some scrap plum wood for this one.",
+  },
   /*
   {
     slug: "rust-bucket-carburetor",
