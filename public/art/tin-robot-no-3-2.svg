@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="1100" viewBox="0 0 1450 1100">
-<defs><linearGradient id="g" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d8792"/><stop offset="1" stop-color="#121417"/></linearGradient></defs>
-<rect width="1450" height="1100" fill="url(#g)"/>
-<rect x="435.0" y="220.0" width="580.0" height="550.0" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="13.200000000000001"/>
-<text x="87.0" y="1012.0" font-family="Georgia, serif" font-size="60.5" fill="#fff" fill-opacity=".7">placeholder · back panel</text>
-</svg>
