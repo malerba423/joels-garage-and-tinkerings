@@ -154,6 +154,24 @@ export const pieces: Piece[] = [
       "My asshole cat bit a bunch of holes in the washing machine greywater out hose so I got to do a fun mid-winter emergency flooring project. Thanks baby Franco.",
   },
   {
+    slug: "live-edge-maple-shelf",
+    title: "Live Edge Maple Shelf",
+    images: [
+      { src: "/art/maple-shelf-1.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-2.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-3.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-4.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-5.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-6.jpg", width: 4032, height: 3024 },
+      { src: "/art/maple-shelf-7.jpg", width: 4032, height: 3024 },
+    ],
+    year: 2023,
+    medium: "Big Leaf Maple, Steel",
+    tags: ["maple", "big leaf", "steel", "shelf", "live edge"],
+    notes:
+      "This one started as a joke to make fun of my boss's whiskey shelf but deep down I truly am the very most passionate about maple, maple syrup, and all maple products.",
+  },
+  {
     slug: "dia-de-los-muertos-altar",
     title: "Dia de los Muertos Altar",
     images: [
