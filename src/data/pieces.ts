@@ -77,6 +77,84 @@ export const pieces: Piece[] = [
     sale: { status: "available", price: "$100.00" }, // example: change or remove
   },
   {
+    slug: "maple-steel-bench",
+    title: "Steel & Maple Bench",
+    images: [
+      { src: "/art/maple-bench-1.jpeg", width: 4032, height: 3024 },
+      { src: "/art/maple-bench-2.jpeg", width: 4032, height: 3024 },
+      { src: "/art/maple-bench-3.jpeg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Steel, silver maple",
+    tags: ["bench", "rustic", "maple"],
+    notes:
+      "Mild steel legs with live-edge silver maple benchtop and back. Shot under a single shop light.",
+    sale: { status: "available", price: "$700.00" }, // example: change or remove
+  },
+  {
+    slug: "retrofit-softclose-kitchen-pantry",
+    title: "Retrofit Soft-Close Kitchen Pantry",
+    images: [
+      { src: "/art/drawers-1.jpeg", width: 4032, height: 3024 },
+      { src: "/art/drawers-2.jpeg", width: 4032, height: 3024 },
+      { src: "/art/drawers-3.jpeg", width: 4032, height: 3024 },
+      { src: "/art/drawers-4.jpeg", width: 4032, height: 3024 },
+      { src: "/art/drawers-5.jpeg", width: 4032, height: 3024 },
+      { src: "/art/drawers-6.jpeg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Steel, silver maple",
+    tags: ["Retrofit", "drawers", "kitchen", "pantry"],
+    notes: "Built a custom set of kitchen cabinets for a soft-close pantry.",
+  },
+  {
+    slug: "castle-joint-bedframe",
+    title: "Castle Joint Bedframe",
+    images: [
+      { src: "/art/bedframe-1.jpeg", width: 4032, height: 3024 },
+      { src: "/art/bedframe-2.jpeg", width: 4032, height: 3024 },
+      { src: "/art/bedframe-3.jpeg", width: 4032, height: 3024 },
+      { src: "/art/bedframe-4.jpeg", width: 4032, height: 3024 },
+      { src: "/art/bedframe-5.jpeg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Basic dimensional lumber",
+    tags: ["castle", "joint", "joinery", "bedframe"],
+    notes:
+      "Wanted to work on some more interesting joinery but didn't wanna botch the first go on expensive hardwood so I used basic doug fir.",
+  },
+  {
+    slug: "entryway-tile-floor",
+    title: "Entryway Tile Floor",
+    images: [
+      { src: "/art/tile-floor-1.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-2.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-3.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-4.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-5.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-6.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-7.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-8.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-9.jpeg", width: 4032, height: 3024 },
+      { src: "/art/tile-floor-10.jpeg", width: 4032, height: 3024 },
+    ],
+    year: 2026,
+    medium: "Slate tile, grout, mortar",
+    tags: [
+      "tile",
+      "floor",
+      "butthead",
+      "cat",
+      "entryway",
+      "franco",
+      "baby",
+      "frank",
+    ],
+    notes:
+      "My asshole cat bit a bunch of holes in the washing machine greywater out hose so I got to do a fun mid-winter emergency flooring project. Thanks baby Franco.",
+  },
+  /*
+  {
     slug: "rust-bucket-carburetor",
     title: "Rust Bucket Carburetor",
     images: [
@@ -96,84 +174,7 @@ export const pieces: Piece[] = [
     size: "9×12 in",
     tags: ["drawing"],
   },
-  {
-    slug: "copper-coil-lamp",
-    title: "Copper Coil Lamp",
-    images: [
-      { src: "/art/copper-coil-lamp.svg", width: 1200, height: 1200 },
-      {
-        src: "/art/copper-coil-lamp-2.svg",
-        width: 1000,
-        height: 1400,
-        caption: "Side view",
-      },
-      {
-        src: "/art/copper-coil-lamp-3.svg",
-        width: 1400,
-        height: 1000,
-        caption: "Lit up at night",
-      },
-    ],
-    year: 2026,
-    medium: "Copper tubing, salvaged bulb socket",
-    size: "18 in tall",
-    tags: ["build", "sculpture"],
-    notes: "Bent by hand around a coffee can.",
-    sale: { status: "available" }, // example: add a price ("$450") and a buyLink
-  },
-  {
-    slug: "garage-door-mural",
-    title: "Garage Door Mural",
-    images: [{ src: "/art/garage-door-mural.svg", width: 2000, height: 900 }],
-    year: 2024,
-    medium: "Exterior latex on steel",
-    size: "16×7 ft",
-    tags: ["painting", "garage"],
-  },
-  {
-    slug: "tin-robot-no-3",
-    title: "Tin Robot No. 3",
-    images: [
-      { src: "/art/tin-robot-no-3.svg", width: 1100, height: 1450 },
-      {
-        src: "/art/tin-robot-no-3-2.svg",
-        width: 1450,
-        height: 1100,
-        caption: "Back panel and wiring",
-      },
-    ],
-    year: 2025,
-    medium: "Tin cans, rivets",
-    tags: ["build", "sculpture"],
-  },
-  {
-    slug: "ink-study-hands",
-    title: "Ink Study: Hands",
-    images: [{ src: "/art/ink-study-hands.svg", width: 1400, height: 1000 }],
-    year: 2026,
-    medium: "India ink",
-    size: "11×8.5 in",
-    tags: ["drawing"],
-  },
-  {
-    slug: "workbench-still-life",
-    title: "Workbench Still Life",
-    images: [
-      { src: "/art/workbench-still-life.svg", width: 1500, height: 1100 },
-    ],
-    year: 2025,
-    medium: "Oil on panel",
-    size: "12×16 in",
-    tags: ["painting", "garage"],
-  },
-  {
-    slug: "blueprint-bicycle",
-    title: "Blueprint Bicycle",
-    images: [{ src: "/art/blueprint-bicycle.svg", width: 1600, height: 1000 }],
-    year: 2026,
-    medium: "Cyanotype",
-    tags: ["print"],
-  },
+  */
 ];
 
 export const allTags = [...new Set(pieces.flatMap((p) => p.tags))].sort();
