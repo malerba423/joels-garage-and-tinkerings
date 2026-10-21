@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: joels-garage
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      # Served at jmalerba.dev/projects/garage via a rewrite in the portfolio's render.yaml.
+      - type: redirect
+        source: /
+        destination: /projects/garage/
+      # Client-side routes (/piece/..., /work-orders) all load the app.
+      - type: rewrite
+        source: /projects/garage/*
+        destination: /projects/garage/index.html

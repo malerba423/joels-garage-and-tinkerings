@@ -248,8 +248,16 @@ for (const key of ["no", "slug"] as const) {
   }
 }
 
+// Image paths above are written from public/ ("/art/..."). The site is served under a path
+// prefix, so add it here. (The build's duplicate check runs outside Vite, with no env.)
+const base: string = import.meta.env?.BASE_URL ?? "/";
+const withBase = (p: Piece): Piece => ({
+  ...p,
+  images: p.images.map((img) => ({ ...img, src: base + img.src.replace(/^\//, "") })) as Piece["images"],
+});
+
 // Listed newest first. Within a year, the higher part number counts as newer.
-export const pieces = [...catalog].sort(
+export const pieces = catalog.map(withBase).sort(
   (a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity) || b.no - a.no,
 );
 
