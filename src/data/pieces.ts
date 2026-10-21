@@ -168,6 +168,23 @@ export const pieces: Piece[] = [
     notes:
       "I'd been wanting to make a Dia de los Muertos altar for a while and finally got around to it. I used some scrap plum wood for this one.",
   },
+  {
+    slug: "driftwood-spoon-knife",
+    title: "Driftwood Spoon & Knife",
+    images: [
+      { src: "/art/spoon-knife-1.jpg", width: 4032, height: 3024 },
+      { src: "/art/spoon-knife-2.jpg", width: 4032, height: 3024 },
+      { src: "/art/spoon-knife-3.jpg", width: 4032, height: 3024 },
+      { src: "/art/spoon-knife-4.jpg", width: 4032, height: 3024 },
+      { src: "/art/spoon-knife-5.jpg", width: 4032, height: 3024 },
+      { src: "/art/spoon-knife-6.jpg", width: 4032, height: 3024 },
+    ],
+    year: 2019,
+    medium: "Sitka spruce driftwood",
+    tags: ["driftwood", "spoon", "knife"],
+    notes:
+      "I found a piece of sitka spruce while hiking in the north cascades sometime in late 2018. At the time I was living in Madison, WI and working at a coffee shop which was owned by a fantastic woodworker and artist. He let me use some of the tools in his shop and I managed to bring my spoon and knife vision to life from the piece of driftwood. I gave the spoon to my mom and the knife to my brother for Christmas that year.",
+  },
   /*
   {
     slug: "rust-bucket-carburetor",

@@ -83,6 +83,7 @@ button { font: inherit; color: inherit; }
   /*box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(20, 24, 30, 0.25); */
 }
 @media (min-width: 1480px) { body { padding: 40px 0; } .site { min-height: calc(100vh - 80px); border-block: 2px solid var(--rule); } }
+@media (min-width: 861px) { #root { margin: 30px auto; } }
 .site main { flex: 1; }
 /* The header is a solid graphite band across the full width of the sheet, so it doesn't
    compete with the ruled line under each page heading. */
