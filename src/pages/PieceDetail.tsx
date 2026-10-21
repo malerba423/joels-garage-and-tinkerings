@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Lightbox from 'yet-another-react-lightbox'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
@@ -27,6 +27,21 @@ function PieceView({ index }: { index: number }) {
   const multiple = piece.images.length > 1
   const no = partNo(piece)
   const sale = piece.sale
+
+  // Arrow keys flip through the sheets until something else on the page takes focus.
+  useEffect(() => {
+    if (!multiple || zoomOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      if (document.activeElement && document.activeElement !== document.body) return
+      const step = e.key === 'ArrowRight' || e.key === ' ' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
+      if (!step) return
+      e.preventDefault()
+      setSelected((s) => (s + step + piece.images.length) % piece.images.length)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [multiple, zoomOpen, piece.images.length])
 
   const rows: [string, ReactNode][] = [
     ['Year', piece.year],

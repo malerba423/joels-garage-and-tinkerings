@@ -49,10 +49,20 @@ export default function Gallery() {
     byAvailability.filter((p) => p.tags.includes(t)).length;
 
   // URL for the current view with some filters changed. Keywords are plain links built from this.
-  const urlWith = (next: { tag?: string | null; status?: string | null; q?: string | null }) => {
-    const merged = { tag, status: availability.id as string | null, q, ...next };
+  const urlWith = (next: {
+    tag?: string | null;
+    status?: string | null;
+    q?: string | null;
+  }) => {
+    const merged = {
+      tag,
+      status: availability.id as string | null,
+      q,
+      ...next,
+    };
     const out = new URLSearchParams();
-    if (merged.status && merged.status !== "all") out.set("status", merged.status);
+    if (merged.status && merged.status !== "all")
+      out.set("status", merged.status);
     if (merged.tag) out.set("tag", merged.tag);
     if (merged.q?.trim()) out.set("q", merged.q.trim());
     const s = out.toString();
@@ -93,7 +103,11 @@ export default function Gallery() {
               autoComplete="off"
             />
             {draft && (
-              <button type="button" className="clear" onClick={() => onSearch("")}>
+              <button
+                type="button"
+                className="clear"
+                onClick={() => onSearch("")}
+              >
                 Clear ×
               </button>
             )}
@@ -104,7 +118,11 @@ export default function Gallery() {
           <span className="mono-label" id="availability-label">
             AVAILABILITY
           </span>
-          <div className="segmented" role="group" aria-labelledby="availability-label">
+          <div
+            className="segmented"
+            role="group"
+            aria-labelledby="availability-label"
+          >
             {availabilityFilters.map((f) => (
               <button
                 key={f.id}
@@ -118,7 +136,10 @@ export default function Gallery() {
           </div>
         </div>
 
-        <nav className="filter-row filter-row-text" aria-labelledby="keyword-label">
+        <nav
+          className="filter-row filter-row-text"
+          aria-labelledby="keyword-label"
+        >
           <span className="mono-label" id="keyword-label">
             KEYWORDS
           </span>
@@ -128,7 +149,11 @@ export default function Gallery() {
               const active = tag === t;
               if (n === 0 && !active)
                 return (
-                  <span key={t} className="keyword empty-keyword" aria-disabled="true">
+                  <span
+                    key={t}
+                    className="keyword empty-keyword"
+                    aria-disabled="true"
+                  >
                     {t}
                   </span>
                 );
@@ -141,7 +166,9 @@ export default function Gallery() {
                 >
                   {t}
                   <span className="count">{n}</span>
-                  {active && <span className="visually-hidden"> (click to remove)</span>}
+                  {active && (
+                    <span className="visually-hidden"> (click to remove)</span>
+                  )}
                 </Link>
               );
             })}
@@ -162,9 +189,7 @@ export default function Gallery() {
           {terms.length > 0 && <> matching “{q.trim()}”</>}
           {tag && <> tagged “{tag}”</>}
           {" · "}
-          <Link to={urlWith({ tag: null, q: null })}>
-            reset
-          </Link>
+          <Link to={urlWith({ tag: null, q: null })}>reset</Link>
         </p>
       )}
 
@@ -175,9 +200,15 @@ export default function Gallery() {
           {shown.map((r) => (
             <Fragment key={r.piece.slug}>
               <Link to={`/piece/${r.piece.slug}`} className="part-card">
-                <img src={cover(r.piece).src} alt={r.piece.title} loading="lazy" />
+                <img
+                  src={cover(r.piece).src}
+                  alt={r.piece.title}
+                  loading="lazy"
+                />
                 {r.piece.images.length > 1 && (
-                  <span className="photo-count">{r.piece.images.length} sheets</span>
+                  <span className="photo-count">
+                    {r.piece.images.length} photos
+                  </span>
                 )}
                 <span className="part-card-bar">
                   <span>
@@ -192,5 +223,4 @@ export default function Gallery() {
       )}
     </>
   );
-
 }
