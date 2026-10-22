@@ -332,3 +332,37 @@ button { font: inherit; color: inherit; }
 .present-dots { display: flex; gap: 6px; margin-top: 6px; }
 .present-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); }
 .present-dots i.on { background: #fff; }
+
+/* Sec. 00 Foreword: the intro note at the top of the catalog */
+.foreword { border: 2px solid var(--rule); background: var(--sheet); margin-bottom: 40px; }
+.foreword-strip {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 8px 16px;
+  background: var(--header-bg); color: var(--header-ink);
+  font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.foreword-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.foreword-side {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+  padding: 28px 28px 24px; border-right: 1.5px solid var(--rule);
+}
+.foreword-side h2 { margin: 0; font-size: 2.6rem; line-height: 1; font-weight: 700; text-transform: uppercase; }
+.foreword-spec {
+  margin: 0; display: grid; grid-template-columns: auto 1fr; border-top: 1.5px solid var(--rule);
+  font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase;
+}
+.foreword-spec dt, .foreword-spec dd { padding: 8px 0; border-bottom: 1px solid var(--rule-soft); }
+.foreword-spec dt { padding-right: 12px; color: var(--muted); }
+.foreword-spec dd { margin: 0; text-align: right; }
+.foreword-spec dt:last-of-type, .foreword-spec dd:last-of-type { border-bottom: 0; }
+.foreword-spec .dot { display: inline-block; vertical-align: -1px; margin-right: 6px; }
+.foreword-text { display: flex; flex-direction: column; gap: 14px; padding: 28px 32px 24px; font-size: 1.15rem; line-height: 1.55; max-width: 760px; }
+.foreword-text p { margin: 0; }
+.foreword-sign { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 6px; }
+.signature { font-family: var(--hand); font-size: 2rem; line-height: 1; }
+.foreword-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 760px) {
+  .foreword-body { grid-template-columns: 1fr; }
+  .foreword-side { border-right: 0; border-bottom: 1.5px solid var(--rule); padding: 22px 18px; }
+  .foreword-side h2 { font-size: 2rem; }
+  .foreword-text { padding: 22px 18px; font-size: 1.05rem; }
+}

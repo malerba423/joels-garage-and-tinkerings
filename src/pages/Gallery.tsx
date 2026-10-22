@@ -10,6 +10,7 @@ import {
 } from "../data/pieces";
 import { search, searchTerms } from "../data/search";
 import { StatusLegend, StatusMark } from "../components/Shop";
+import Foreword from "../components/Foreword";
 
 const headings: Partial<Record<Availability, string>> = {
   "for-sale": "Creations for Sale",
@@ -77,8 +78,12 @@ export default function Gallery() {
     setParams(next, { replace: true }); // typing shouldn't fill up browser history
   };
 
+  // The foreword only greets visitors on the plain catalog, not filtered views
+  const showForeword = availability.id === "all" && !tag && !q.trim();
+
   return (
     <>
+      {showForeword && <Foreword />}
       <div className="index-head">
         <h1>{headings[availability.id] ?? "Catalog of Creations"}</h1>
         <StatusLegend />
