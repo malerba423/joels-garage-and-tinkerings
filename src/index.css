@@ -345,7 +345,12 @@ button { font: inherit; color: inherit; }
   display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
   padding: 28px 28px 24px; border-right: 1.5px solid var(--rule);
 }
-.foreword-side h2 { margin: 0; font-size: 2.6rem; line-height: 1; font-weight: 700; text-transform: uppercase; }
+.foreword-photo { margin: 0; border: 1.5px solid var(--rule); }
+.foreword-photo img { display: block; width: 100%; height: auto; }
+.foreword-photo figcaption {
+  padding: 6px 10px; border-top: 1.5px solid var(--rule);
+  font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted);
+}
 .foreword-spec {
   margin: 0; display: grid; grid-template-columns: auto 1fr; border-top: 1.5px solid var(--rule);
   font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase;
@@ -363,6 +368,6 @@ button { font: inherit; color: inherit; }
 @media (max-width: 760px) {
   .foreword-body { grid-template-columns: 1fr; }
   .foreword-side { border-right: 0; border-bottom: 1.5px solid var(--rule); padding: 22px 18px; }
-  .foreword-side h2 { font-size: 2rem; }
+  .foreword-photo { max-width: 320px; }
   .foreword-text { padding: 22px 18px; font-size: 1.05rem; }
 }

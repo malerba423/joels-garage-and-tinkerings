@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { pieces } from "../data/pieces";
 import { mailto } from "../data/shop";
+import joel from "../assets/joel.jpg";
 
 /** Sec. 00: the note at the top of the catalog. Counts come from the catalog, so they stay current. */
 export default function Foreword() {
@@ -12,7 +13,11 @@ export default function Foreword() {
       </div>
       <div className="foreword-body">
         <div className="foreword-side">
-          <h2 id="foreword-title">A note before you browse</h2>
+          <h2 id="foreword-title" className="visually-hidden">A note before you browse</h2>
+          <figure className="foreword-photo">
+            <img src={joel} alt="Joel in a bike helmet, sticking his tongue out at the camera" width={900} height={866} />
+            <figcaption>Fig. 00 · The tinkerer, mid-ride</figcaption>
+          </figure>
           <dl className="foreword-spec">
             <dt>Catalogued</dt>
             <dd>{pieces.length} entries</dd>
