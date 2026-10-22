@@ -13,9 +13,16 @@ export default function Foreword() {
       </div>
       <div className="foreword-body">
         <div className="foreword-side">
-          <h2 id="foreword-title" className="visually-hidden">A note before you browse</h2>
+          <h2 id="foreword-title" className="visually-hidden">
+            A note before you browse
+          </h2>
           <figure className="foreword-photo">
-            <img src={joel} alt="Joel in a bike helmet, sticking his tongue out at the camera" width={900} height={866} />
+            <img
+              src={joel}
+              alt="Joel in a bike helmet, sticking his tongue out at the camera"
+              width={900}
+              height={866}
+            />
             <figcaption>Fig. 00 · The tinkerer, mid-ride</figcaption>
           </figure>
           <dl className="foreword-spec">
@@ -44,20 +51,24 @@ export default function Foreword() {
           </p>
           <p>
             A few pieces are available, though (look for the green dot). Feel
-            free to reach out if something catches your eye, or if you're just
-            curious and have questions about any of these projects, jobs, or
-            builds.
+            free to <a href={mailto("Question about your work")}>reach out</a>{" "}
+            if something catches your eye, or if you're just curious and have
+            questions about any of these projects, jobs, or builds.
           </p>
           <div className="foreword-sign">
             <span className="signature">Cheers! — Joel</span>
-            <span className="foreword-actions">
-              <Link to="/?status=available" className="button ghost">
-                See what's available
-              </Link>
-              <a href={mailto("Question about your work")} className="button">
-                Ask about a piece
-              </a>
-            </span>
+            <Link
+              to="/?status=available"
+              className="button"
+              // The foreword stays put, so bring the filtered catalog into view
+              onClick={() =>
+                document
+                  .getElementById("catalog")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              See what's available
+            </Link>
           </div>
         </div>
       </div>

@@ -78,13 +78,10 @@ export default function Gallery() {
     setParams(next, { replace: true }); // typing shouldn't fill up browser history
   };
 
-  // The foreword only greets visitors on the plain catalog, not filtered views
-  const showForeword = availability.id === "all" && !tag && !q.trim();
-
   return (
     <>
-      {showForeword && <Foreword />}
-      <div className="index-head">
+      <Foreword />
+      <div className="index-head" id="catalog">
         <h1>{headings[availability.id] ?? "Catalog of Creations"}</h1>
         <StatusLegend />
       </div>
@@ -181,42 +178,46 @@ export default function Gallery() {
         </nav>
       </div>
 
-      {(terms.length > 0 || tag) && (
-        <p className="result-line" aria-live="polite">
-          {shown.length} {shown.length === 1 ? "creation" : "creations"}
-          {terms.length > 0 && <> matching “{q.trim()}”</>}
-          {tag && <> tagged “{tag}”</>}
-          {" · "}
-          <Link to={urlWith({ tag: null, q: null })}>reset</Link>
-        </p>
-      )}
+      <div className="catalog-results">
+        {(terms.length > 0 || tag) && (
+          <p className="result-line" aria-live="polite">
+            {shown.length} {shown.length === 1 ? "creation" : "creations"}
+            {terms.length > 0 && <> matching “{q.trim()}”</>}
+            {tag && <> tagged “{tag}”</>}
+            {" · "}
+            <Link to={urlWith({ tag: null, q: null })}>reset</Link>
+          </p>
+        )}
 
-      {shown.length === 0 ? (
-        <p className="empty">Nothing on this shelf matches that.</p>
-      ) : (
-        <div className="parts-grid">
-          {shown.map((r) => (
-            <Fragment key={r.piece.slug}>
-              <Link to={`/piece/${r.piece.slug}`} className="part-card">
-                <img
-                  src={cover(r.piece).thumb}
-                  alt={r.piece.title}
-                  loading="lazy"
-                />
-                {r.piece.year && (
-                  <span className="year-badge">{r.piece.year}</span>
-                )}
-                <span className="part-card-bar">
-                  <span>
-                    {partNo(r.piece)} {r.piece.title}
+        {shown.length === 0 ? (
+          <p className="empty">Nothing on this shelf matches that.</p>
+        ) : (
+          <div className="parts-grid">
+            {shown.map((r) => (
+              <Fragment key={r.piece.slug}>
+                <Link to={`/piece/${r.piece.slug}`} className="part-card">
+                  <img
+                    src={cover(r.piece).thumb}
+                    alt={r.piece.title}
+                    loading="lazy"
+                  />
+                  {r.piece.year && (
+                    <span className="year-badge">{r.piece.year}</span>
+                  )}
+                  <span className="part-card-bar">
+                    <span>
+                      {partNo(r.piece)} {r.piece.title}
+                    </span>
+                    {r.piece.sale && (
+                      <StatusMark status={r.piece.sale.status} />
+                    )}
                   </span>
-                  {r.piece.sale && <StatusMark status={r.piece.sale.status} />}
-                </span>
-              </Link>
-            </Fragment>
-          ))}
-        </div>
-      )}
+                </Link>
+              </Fragment>
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }

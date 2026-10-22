@@ -1,10 +1,7 @@
-import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 export default function Layout() {
-  const [params] = useSearchParams();
   const { pathname } = useLocation();
-  const availableView =
-    pathname === "/" && params.get("status") === "available";
   const current = (on: boolean) =>
     on ? { className: "active", "aria-current": "page" as const } : {};
   return (
@@ -15,14 +12,11 @@ export default function Layout() {
           <span>Joel's Garage &amp; Tinkerings</span>
         </Link>
         <nav className="site-nav">
-          <Link to="/" {...current(pathname === "/" && !availableView)}>
+          <Link to="/" {...current(pathname === "/")}>
             01 Catalog
           </Link>
-          <Link to="/?status=available" {...current(availableView)}>
-            02 Available
-          </Link>
           <Link to="/work-orders" {...current(pathname === "/work-orders")}>
-            03 Commissions
+            02 Commissions
           </Link>
           <Link to="/present" className="button">
             ▶ Present

@@ -204,6 +204,9 @@ button { font: inherit; color: inherit; }
   position: absolute; right: 8px; top: 8px; padding: 2px 8px; background: var(--paper); border: 1.5px solid var(--rule);
   font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; pointer-events: none;
 }
+/* Holds its height when a filter leaves only a few pieces, so the page doesn't jump */
+.catalog-results { min-height: 600px; }
+@media (max-width: 760px) { .catalog-results { min-height: 0; } }
 .empty { font-family: var(--mono); color: var(--muted); padding: 48px 0; }
 
 /* Detail page */
@@ -364,7 +367,6 @@ button { font: inherit; color: inherit; }
 .foreword-text p { margin: 0; }
 .foreword-sign { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 6px; }
 .signature { font-family: var(--hand); font-size: 2rem; line-height: 1; }
-.foreword-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 @media (max-width: 760px) {
   .foreword-body { grid-template-columns: 1fr; }
   .foreword-side { border-right: 0; border-bottom: 1.5px solid var(--rule); padding: 22px 18px; }
