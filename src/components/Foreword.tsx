@@ -58,7 +58,7 @@ export default function Foreword() {
           <div className="foreword-sign">
             <span className="signature">Cheers! — Joel</span>
             <Link
-              to="/?status=available"
+              to="/?status=everything"
               className="button"
               // The foreword stays put, so bring the filtered catalog into view
               onClick={() =>
