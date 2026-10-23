@@ -363,7 +363,7 @@ button { font: inherit; color: inherit; }
 .foreword-spec dd { margin: 0; text-align: right; }
 .foreword-spec dt:last-of-type, .foreword-spec dd:last-of-type { border-bottom: 0; }
 .foreword-spec .dot { display: inline-block; vertical-align: -1px; margin-right: 6px; }
-.foreword-text { display: flex; flex-direction: column; gap: 14px; padding: 28px 32px 24px; font-size: 1.15rem; line-height: 1.55; max-width: 760px; }
+.foreword-text { display: flex; flex-direction: column; gap: 14px; padding: 28px 32px 24px; font-size: 1.15rem; line-height: 1.55; }
 .foreword-text p { margin: 0; }
 .foreword-sign { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 6px; }
 .signature { font-family: var(--hand); font-size: 2rem; line-height: 1; }

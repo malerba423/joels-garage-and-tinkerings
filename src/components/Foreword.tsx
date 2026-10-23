@@ -67,7 +67,7 @@ export default function Foreword() {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              See what's available
+              Browse the creations
             </Link>
           </div>
         </div>
