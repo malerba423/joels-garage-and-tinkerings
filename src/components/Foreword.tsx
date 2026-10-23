@@ -39,7 +39,7 @@ export default function Foreword() {
         </div>
         <div className="foreword-text">
           <p>
-            I built this little portfolio partly to show off some of the pieces
+            I built this art portfolio partly to show off some of the pieces
             I've made over the years, and partly just to catalog my work, so
             most of my efforts live in one place that's easy to share with
             friends, family, and colleagues.
