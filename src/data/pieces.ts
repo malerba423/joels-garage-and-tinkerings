@@ -245,7 +245,8 @@ const catalog: Piece[] = [
 for (const key of ["no", "slug"] as const) {
   const seen = new Set<unknown>();
   for (const p of catalog) {
-    if (seen.has(p[key])) throw new Error(`Two pieces share ${key} ${JSON.stringify(p[key])}`);
+    if (seen.has(p[key]))
+      throw new Error(`Two pieces share ${key} ${JSON.stringify(p[key])}`);
     seen.add(p[key]);
   }
 }
@@ -257,14 +258,18 @@ const withBase = (p: Piece): Piece => ({
   ...p,
   images: p.images.map((img) => {
     const path = img.src.replace(/^\//, "");
-    return { ...img, src: base + path, thumb: base + path.replace(/^art\//, "art/thumbs/") };
+    return {
+      ...img,
+      src: base + path,
+      thumb: base + path.replace(/^art\//, "art/thumbs/"),
+    };
   }) as Piece["images"],
 });
 
 // Listed newest first. Within a year, the higher part number counts as newer.
-export const pieces = catalog.map(withBase).sort(
-  (a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity) || b.no - a.no,
-);
+export const pieces = catalog
+  .map(withBase)
+  .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity) || b.no - a.no);
 
 export const allTags = [...new Set(pieces.flatMap((p) => p.tags))].sort();
 
@@ -287,11 +292,7 @@ export const statusLabel: Record<SaleStatus, string> = {
 // order (available, on hold, or can build another); "Available now" is only
 // what's on the wall and claimable today.
 export type Availability =
-  | "all"
-  | "for-sale"
-  | "available"
-  | "sold"
-  | "not-for-sale";
+  "all" | "for-sale" | "available" | "sold" | "not-for-sale";
 
 export const availabilityFilters: {
   id: Availability;

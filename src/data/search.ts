@@ -19,8 +19,9 @@ const normalize = (s: string) =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
-export const searchTerms = (query: string) =>
-  [...new Set(normalize(query).split(" ").filter(Boolean))];
+export const searchTerms = (query: string) => [
+  ...new Set(normalize(query).split(" ").filter(Boolean)),
+];
 
 function haystack(p: Piece) {
   const rest = [
@@ -37,7 +38,9 @@ function haystack(p: Piece) {
   return {
     title: normalize(p.title),
     // the part number both padded and bare, so "14", "014" and "no 14" all work
-    rest: normalize([partNo(p), Number(partNo(p)), ...rest].filter(Boolean).join(" ")),
+    rest: normalize(
+      [partNo(p), Number(partNo(p)), ...rest].filter(Boolean).join(" "),
+    ),
   };
 }
 

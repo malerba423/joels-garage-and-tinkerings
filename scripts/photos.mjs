@@ -27,7 +27,10 @@ if (process.argv[2] === "thumbs") {
     if (existing && existing.mtimeMs >= (await stat(src)).mtimeMs) continue;
     await sharp(src)
       .rotate()
-      .resize(THUMB_SHORT_SIDE, THUMB_SHORT_SIDE, { fit: "outside", withoutEnlargement: true })
+      .resize(THUMB_SHORT_SIDE, THUMB_SHORT_SIDE, {
+        fit: "outside",
+        withoutEnlargement: true,
+      })
       .jpeg({ quality: 78, progressive: true, mozjpeg: true })
       .toFile(out);
     made++;
