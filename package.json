@@ -11,7 +11,9 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "thumbs": "node scripts/photos.mjs thumbs",
-    "photos": "node scripts/photos.mjs"
+    "photos": "node scripts/photos.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -26,6 +28,7 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
+    "prettier": "3.9.10",
     "sharp": "^0.35.5",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
