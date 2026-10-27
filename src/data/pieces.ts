@@ -159,7 +159,7 @@ const catalog: Piece[] = [
       "frank",
     ],
     notes:
-      "My asshole cat bit a bunch of holes in the washing machine greywater out hose so I got to do a fun mid-winter emergency flooring project. Thanks baby Franco.",
+      "My butthead cat bit a bunch of holes in the washing machine greywater out hose so I got to do a fun mid-winter emergency flooring project. Thanks baby Franco.",
   },
   {
     slug: "live-edge-maple-shelf",
